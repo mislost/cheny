@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+## Author: Cheny  Date: 2016-7-26 16:18
+## this mothed get all of GIF images of mtl website(http://www.mtl999.gq/) 
 import urllib
 import urllib2
 import re
@@ -8,9 +10,10 @@ import sys
 
 global DATA
 global COUNT
-COUNT = 0
 DATA = []
+COUNT = 0
 
+# get all of forums from  GIF-BBS pages.
 def get_url(page):
     global DATA
     global COUNT
@@ -31,6 +34,7 @@ def get_url(page):
     return DATA
 
 
+# Multithreading of python.
 def run():
     global COUNT
     global DATA
@@ -39,7 +43,7 @@ def run():
         t.start()
     
 
-
+# Get the image urls of all of forums.
 def get_image_url(url):
     user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64)'
     headers = { 'User-Agent' : user_agent }
@@ -51,10 +55,6 @@ def get_image_url(url):
     content = response.read()
     pattern = re.compile('<img.*?file="(.*?\.gif)".*?')
     result = pattern.findall(content)
-    #print url + ":"
-    #for i in result:
-    #    print i
-    #print "-" * 90
     with open('image.txt','a+') as f:
         for i in result:
             f.write(i + '\n')
